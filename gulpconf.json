@@ -1,0 +1,118 @@
+{
+  "general": {
+    "srcPath": "src",
+    "resPath": "res",
+    "dstPath": "public"
+  },
+  "jade": {
+    "options": {
+      "pretty": true,
+      "debug": false
+    }
+  },
+  "styl": {
+    "options": {
+    }
+  },
+  "cssnext": {
+    "options": {
+    }
+  },
+  "coffee": {
+    "options": {
+      "bare": true
+    }
+  },
+  "uglify": {
+    "options": {
+      "mangle": true,
+      "preserveComments": "some"
+    }
+  },
+  "babel": {
+    "options": {
+      "presets": [
+        "es2015"
+      ]
+    }
+  },
+  "js": {
+    "options": {
+    }
+  },
+  "css": {
+    "options": {
+    }
+  },
+  "html": {
+    "options": {
+    }
+  },
+  "copy": {
+    "options": {
+      "ext": "{html,htm,css,js,map,jpeg,jpg,gif,png,svg,ico,json,xml}"
+    }
+  },
+  "sprite": {
+    "options": {
+      "imgName": "__spritesheet.png",
+      "cssName": "__spritesheet.styl",
+      "imgPath": "__spritesheet.png",
+      "algorithm": "binary-tree",
+      "cssFormat": "stylus",
+      "padding": 2
+    }
+  },
+  "watch": {
+    "options": {
+      "jade":   ".jade",
+      "styl":   ".styl",
+      "coffee": ".coffee",
+      "babel":  ".babel.js",
+      "files":  ".{html,htm,css,js,map,jpeg,jpg,gif,png,ico,svg,json,xml}",
+      "sprite": ".{jpeg,jpg,gif,png}"
+    }
+  },
+  "capture": {
+    "options": {
+      "format": "png",
+      "flatten": true,
+      "incremental": true,
+      "root": "public/",
+      "p": 54321,
+      "renderDelay": 500,
+      "windowSize": {
+        "width":  1280,
+        "height": 800
+      },
+      "shotSize": {
+        "width":  "all",
+        "height": "all"
+      }
+    }
+  },
+  "conv": {
+    "options": {
+      "to": "Shift_JIS"
+    },
+    "pattern": "/utf-?8/i",
+    "replace": "shift_jis"
+  },
+  "browserSync": {
+    "options": {
+      "server": {
+        "directory": false
+      },
+      "port": 9000,
+      "open": true,
+      "notify": true,
+      "reloadDelay": 800,
+      "ghostMode": {
+        "clicks": true,
+        "location": true,
+        "forms": true,
+        "scroll": true
+      }
+    }
+  }
+}

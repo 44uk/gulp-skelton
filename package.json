@@ -1,0 +1,52 @@
+{
+  "version": "0.0.1",
+  "name": "gulp-skelton",
+  "description": "gulp-skelton",
+  "license": "MIT",
+  "author": {
+    "name": "Yoshiyuki Ieyama",
+    "email": "yukku0423@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">= 0.12.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp",
+    "watch": "gulp watch",
+    "serv": "gulp serv",
+    "build": "gulp build",
+    "copy": "gulp copy",
+    "cap": "gulp capture",
+    "conv": "gulp conv"
+  },
+  "devDependencies": {
+    "babel-core": "^6.3.26",
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browser-sync": "^2.6.4",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
+    "gulp-coffee": "^2.3.1",
+    "gulp-convert-encoding": "0.0.3",
+    "gulp-cssnext": "^1.0.1",
+    "gulp-if": "^2.0.0",
+    "gulp-jade": "^1.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-stylus": "^2.0.1",
+    "gulp-webshot": "git@github.com:yukku0423/gulp-webshot.git#opt-flatten",
+    "gulp.spritesmith": "^6.0.0"
+  }
+}
