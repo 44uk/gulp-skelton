@@ -1,12 +1,12 @@
 'use strict';
-gulp.task('build',   [
+gulp.task('build', [
   'jade',
   'styl',
   'coffee',
   'babel',
   'sprite'
 ], copy);
-gulp.task('sync',    ['build', 'serv'] , watch);
+gulp.task('sync', ['build', 'serv'] , watch);
 gulp.task('default', ['sync']);
 
 gulp.task('jade', jade);
@@ -15,8 +15,10 @@ gulp.task('coffee', coffee);
 gulp.task('babel', babel);
 gulp.task('copy', copy);
 gulp.task('sprite', sprite);
+
 gulp.task('conv', conv);
 gulp.task('capture', capture);
+gulp.task('validate', validate);
 
 gulp.task('nil', nil);
 gulp.task('watch', watch);
@@ -38,6 +40,7 @@ import gRename from 'gulp-rename';
 import gConv from 'gulp-convert-encoding';
 import gReplace from 'gulp-replace';
 import gWebshot from 'gulp-webshot';
+import gHtmlhint from 'gulp-htmlhint';
 import browserSync from 'browser-sync';
 import conf from './gulpconf.json';
 
@@ -185,6 +188,16 @@ function capture () {
   gulp.src(srcPath)
     .pipe(notify())
     .pipe(gWebshot(options))
+  ;
+}
+
+function validate () {
+  let srcPath = [
+    path.join(conf.general.dstPath, "**/*.{html,htm}")
+  ];
+  gulp.src(srcPath)
+    .pipe(gHtmlhint())
+    .pipe(gHtmlhint.reporter())
   ;
 }
 
