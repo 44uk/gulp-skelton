@@ -1,13 +1,19 @@
 'use strict';
-gulp.task('build', [
-  'jade',
-  'styl',
-  'coffee',
-  'babel',
-  'sprite'
-], copy);
-gulp.task('sync', ['build', 'serv'] , watch);
 gulp.task('default', ['sync']);
+gulp.task('build', (cb) => { rs(
+  [
+    'jade',
+    'styl',
+    'coffee',
+    'babel',
+    'sprite'
+  ],
+  'copy',
+  'validate',
+  cb
+)});
+gulp.task('sync', ['build', 'serv'] , watch);
+gulp.task('minify', ['uglify', 'csso']);
 
 gulp.task('jade', jade);
 gulp.task('styl', styl);
@@ -15,6 +21,8 @@ gulp.task('coffee', coffee);
 gulp.task('babel', babel);
 gulp.task('copy', copy);
 gulp.task('sprite', sprite);
+gulp.task('uglify', uglify);
+gulp.task('csso', csso);
 
 gulp.task('conv', conv);
 gulp.task('capture', capture);
@@ -33,8 +41,10 @@ import gNotify from 'gulp-notify';
 import gStyl from 'gulp-stylus';
 import gJade from 'gulp-jade';
 import gCssnext from 'gulp-cssnext';
+import gCsso from 'gulp-csso';
 import gCoffee from 'gulp-coffee';
 import gBabel from 'gulp-babel';
+import gUglify from 'gulp-uglify';
 import gSprite from 'gulp.spritesmith';
 import gRename from 'gulp-rename';
 import gConv from 'gulp-convert-encoding';
@@ -42,6 +52,7 @@ import gReplace from 'gulp-replace';
 import gWebshot from 'gulp-webshot';
 import gHtmlhint from 'gulp-htmlhint';
 import browserSync from 'browser-sync';
+import rs from 'run-sequence';
 import conf from './gulpconf.json';
 
 var isProd = false;
@@ -134,6 +145,30 @@ function sprite () {
 
   sprite.img.pipe(gulp.dest(imgSheetPath));
   sprite.css.pipe(gulp.dest(cssSheetPath));
+}
+
+function csso () {
+  let srcPath = [
+    path.join(conf.general.dstPath, "**/*.css")
+  ];
+
+  gulp.src(srcPath)
+    .pipe(notify())
+    .pipe(gCsso())
+    .pipe(gulp.dest(conf.general.dstPath))
+  ;
+}
+
+function uglify () {
+  let srcPath = [
+    path.join(conf.general.dstPath, "**/*.js")
+  ];
+
+  gulp.src(srcPath)
+    .pipe(notify())
+    .pipe(gUglify(conf.uglify.options))
+    .pipe(gulp.dest(conf.general.dstPath))
+  ;
 }
 
 function watch () {
