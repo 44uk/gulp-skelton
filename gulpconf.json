@@ -12,6 +12,7 @@
   },
   "styl": {
     "options": {
+      "include css": true
     }
   },
   "cssnext": {

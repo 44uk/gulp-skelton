@@ -51,6 +51,7 @@ import gConv from 'gulp-convert-encoding';
 import gReplace from 'gulp-replace';
 import gWebshot from 'gulp-webshot';
 import gHtmlhint from 'gulp-htmlhint';
+import gSourcemap from 'gulp-sourcemaps';
 import browserSync from 'browser-sync';
 import rs from 'run-sequence';
 import conf from './gulpconf.json';
@@ -84,8 +85,10 @@ function styl () {
 
   gulp.src(srcPath)
     .pipe(notify())
+    .pipe(gSourcemap.init())
     .pipe(gStyl(options))
     .pipe(gCssnext())
+    .pipe(gSourcemap.write())
     .pipe(gulp.dest(conf.general.dstPath))
   ;
 }
@@ -99,7 +102,9 @@ function coffee () {
 
   gulp.src(srcPath)
     .pipe(notify())
+    .pipe(gSourcemap.init())
     .pipe(gCoffee(options))
+    .pipe(gSourcemap.write())
     .pipe(gulp.dest(conf.general.dstPath))
   ;
 }
