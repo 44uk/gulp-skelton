@@ -1,6 +1,7 @@
 'use strict';
 gulp.task('default', ['sync']);
-gulp.task('build', (cb) => { rs(
+gulp.task('sync', ['build', 'serv'] , watch);
+gulp.task('build', (cb) => { return rs(
   [
     'jade',
     'styl',
@@ -12,8 +13,13 @@ gulp.task('build', (cb) => { rs(
   'validate',
   cb
 )});
-gulp.task('sync', ['build', 'serv'] , watch);
-gulp.task('minify', ['uglify', 'csso']);
+gulp.task('release', (cb) => { return rs(
+  'production',
+  'clean',
+  'build',
+  cb
+)});
+gulp.task('min', ['uglify', 'csso']);
 
 gulp.task('jade', jade);
 gulp.task('styl', styl);
@@ -27,13 +33,18 @@ gulp.task('csso', csso);
 gulp.task('conv', conv);
 gulp.task('capture', capture);
 gulp.task('validate', validate);
+gulp.task('clean', clean);
 
 gulp.task('nil', nil);
 gulp.task('watch', watch);
 gulp.task('serv', bsInit);
 gulp.task('serv:reload', bsReload);
+gulp.task('production', production);
 
+import del from 'del';
 import path from 'path';
+import rs from 'run-sequence';
+import browserSync from 'browser-sync';
 import gulp from 'gulp';
 import gIf from 'gulp-if';
 import gPlumber from 'gulp-plumber';
@@ -52,8 +63,6 @@ import gReplace from 'gulp-replace';
 import gWebshot from 'gulp-webshot';
 import gHtmlhint from 'gulp-htmlhint';
 import gSourcemap from 'gulp-sourcemaps';
-import browserSync from 'browser-sync';
-import rs from 'run-sequence';
 import conf from './gulpconf.json';
 
 var isProd = false;
@@ -78,7 +87,7 @@ function jade () {
 
 function styl () {
   let srcPath = [
-    path.join(conf.general.srcPath, "**/!(_)*.styl")
+    path.join(conf.general.srcPath, "**/!(_)*.{styl,css}")
   ];
   let options = Object.assign(conf.styl.options, {
   });
@@ -88,7 +97,7 @@ function styl () {
     .pipe(gSourcemap.init())
     .pipe(gStyl(options))
     .pipe(gCssnext())
-    .pipe(gSourcemap.write())
+    .pipe(gIf(isProd, gSourcemap.write('.'), gSourcemap.write()))
     .pipe(gulp.dest(conf.general.dstPath))
   ;
 }
@@ -104,7 +113,7 @@ function coffee () {
     .pipe(notify())
     .pipe(gSourcemap.init())
     .pipe(gCoffee(options))
-    .pipe(gSourcemap.write())
+    .pipe(gIf(isProd, gSourcemap.write('.'), gSourcemap.write()))
     .pipe(gulp.dest(conf.general.dstPath))
   ;
 }
@@ -223,7 +232,7 @@ function capture () {
     path.join(conf.general.dstPath, "**/*.{html,htm}")
   ];
   let options = Object.assign(conf.capture.options, {
-    dest: "capture"
+    dest: conf.general.capPath
   });
   gulp.src(srcPath)
     .pipe(notify())
@@ -239,6 +248,14 @@ function validate () {
     .pipe(gHtmlhint())
     .pipe(gHtmlhint.reporter())
   ;
+}
+
+function clean () {
+  let dstPath = [
+    path.join(conf.general.dstPath, "**/*.*"),
+    path.join(conf.general.capPath, "**/*.*")
+  ];
+  del(dstPath);
 }
 
 function production () { isProd = true }

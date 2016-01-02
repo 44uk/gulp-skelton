@@ -2,7 +2,8 @@
   "general": {
     "srcPath": "src",
     "resPath": "res",
-    "dstPath": "public"
+    "dstPath": "public",
+    "capPath": "capture"
   },
   "jade": {
     "options": {
