@@ -77,6 +77,7 @@
   },
   "capture": {
     "options": {
+      "defaultWhiteBackground": true,
       "format": "png",
       "flatten": true,
       "incremental": true,
