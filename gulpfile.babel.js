@@ -1,16 +1,17 @@
 'use strict';
 gulp.task('default', ['sync']);
 gulp.task('sync', ['build', 'serv'] , watch);
+// TODO: replace run-sequence to gulp.parallel when gulp4 released.
+// @see http://qiita.com/joe-re/items/e04010ed03826fb94a16
 gulp.task('build', (cb) => { return rs(
+  'sprite',
   [
     'jade',
     'styl',
     'coffee',
-    'babel',
-    'sprite'
+    'babel'
   ],
   'copy',
-  'validate',
   cb
 )});
 gulp.task('release', (cb) => { return rs(
