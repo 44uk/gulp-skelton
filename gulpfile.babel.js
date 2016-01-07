@@ -54,6 +54,7 @@ import gStyl from 'gulp-stylus';
 import gJade from 'gulp-jade';
 import gCssnext from 'gulp-cssnext';
 import gCsso from 'gulp-csso';
+import gMmq from 'gulp-merge-media-queries';
 import gCoffee from 'gulp-coffee';
 import gBabel from 'gulp-babel';
 import gUglify from 'gulp-uglify';
@@ -97,6 +98,7 @@ function styl () {
     .pipe(notify())
     .pipe(gSourcemap.init())
     .pipe(gStyl(options))
+    .pipe(gMmq())
     .pipe(gCssnext())
     .pipe(gIf(isProd, gSourcemap.write('.'), gSourcemap.write()))
     .pipe(gulp.dest(conf.general.dstPath))
