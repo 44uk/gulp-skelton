@@ -29,7 +29,7 @@
     "cap": "gulp capture",
     "conv": "gulp conv",
     "validate": "gulp validate",
-    "minify": "gulp minify"
+    "min": "gulp minify"
   },
   "devDependencies": {
     "babel-core": "^6.3.26",

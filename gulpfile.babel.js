@@ -19,7 +19,7 @@ gulp.task('release', (cb) => { return rs(
   'build',
   cb
 )});
-gulp.task('min', ['uglify', 'csso']);
+gulp.task('minify', ['uglify', 'csso']);
 
 gulp.task('jade', jade);
 gulp.task('styl', styl);
