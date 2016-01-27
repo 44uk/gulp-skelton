@@ -46,15 +46,17 @@ import del from 'del';
 import path from 'path';
 import rs from 'run-sequence';
 import browserSync from 'browser-sync';
+import autoprefixer from 'autoprefixer';
+import mqpacker from 'css-mqpacker';
 import gulp from 'gulp';
 import gIf from 'gulp-if';
 import gPlumber from 'gulp-plumber';
 import gNotify from 'gulp-notify';
 import gStyl from 'gulp-stylus';
 import gJade from 'gulp-jade';
-import gCssnext from 'gulp-cssnext';
+import gPostcss from 'gulp-postcss';
 import gCsso from 'gulp-csso';
-import gMmq from 'gulp-merge-media-queries';
+// import gMmq from 'gulp-merge-media-queries';
 import gCoffee from 'gulp-coffee';
 import gBabel from 'gulp-babel';
 import gUglify from 'gulp-uglify';
@@ -93,13 +95,16 @@ function styl () {
   ];
   let options = Object.assign(conf.styl.options, {
   });
+  let processors = [
+    autoprefixer({browsers: ['last 2 version']}),
+    mqpacker
+  ]
 
   gulp.src(srcPath)
     .pipe(notify())
     .pipe(gSourcemap.init())
     .pipe(gStyl(options))
-    .pipe(gMmq())
-    .pipe(gCssnext())
+    .pipe(gPostcss(processors))
     .pipe(gIf(isProd, gSourcemap.write('.'), gSourcemap.write()))
     .pipe(gulp.dest(conf.general.dstPath))
   ;
