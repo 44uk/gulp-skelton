@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:yukku0423/gulp-skelton.git"
   },
   "engines": {
     "node": ">= 0.12.0"

@@ -56,7 +56,6 @@ import gStyl from 'gulp-stylus';
 import gJade from 'gulp-jade';
 import gPostcss from 'gulp-postcss';
 import gCsso from 'gulp-csso';
-// import gMmq from 'gulp-merge-media-queries';
 import gCoffee from 'gulp-coffee';
 import gBabel from 'gulp-babel';
 import gUglify from 'gulp-uglify';
